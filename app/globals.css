@@ -8,6 +8,8 @@
   --accent: #ff7a59;
   --accent-strong: #ffb26b;
   --muted: #98a2b3;
+  --font-display: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-body: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
 }
 
 @theme inline {
@@ -20,5 +22,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body), "Space Grotesk", system-ui, sans-serif;
+  font-family: var(--font-body);
 }

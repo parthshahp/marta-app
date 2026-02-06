@@ -142,6 +142,21 @@ export async function GET() {
   }
 
   const lastAttempt = await fetchFromMarta(apiKey);
+  if (lastAttempt.ok) {
+    cache = {
+      payload: lastAttempt.payload,
+      fetchedAt: now(),
+    };
+    return NextResponse.json({
+      data: cache.payload,
+      cache: {
+        hit: false,
+        stale: false,
+        ageMs: 0,
+      },
+    });
+  }
+
   return NextResponse.json(
     {
       message: `MARTA API error (${lastAttempt.status}).`,
