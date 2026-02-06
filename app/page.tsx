@@ -64,11 +64,12 @@ export default function Home() {
         const payload = await response.json().catch(() => ({}));
         throw new Error(payload?.upstream ?? payload?.message ?? "Unable to fetch arrivals.");
       }
-      const payload = (await response.json()) as Arrival[];
-      setArrivals(payload);
+      const payload = (await response.json()) as { data?: Arrival[] } | Arrival[];
+      const nextArrivals = Array.isArray(payload) ? payload : (payload.data ?? []);
+      setArrivals(nextArrivals);
       setUpdatedAt(new Date());
-      if (payload.length > 0) {
-        setSelectedStation((current) => current ?? payload[0].STATION);
+      if (nextArrivals.length > 0) {
+        setSelectedStation((current) => current ?? nextArrivals[0].STATION);
       }
       setStatus("idle");
     } catch (error) {
